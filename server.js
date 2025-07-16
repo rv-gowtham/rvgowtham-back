@@ -8,7 +8,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "https://rvgowtham.vercel.app"],
     methods: ["GET", "POST"],
     credentials: true,
   })
@@ -27,6 +27,14 @@ const contactSchema = new mongoose.Schema({
 });
 
 const Contact = mongoose.model("Contact", contactSchema);
+
+app.get("/", (req, res) => {
+  try {
+    res.send("Backend is running perfectly");
+  } catch (e) {
+    res.send(e.message);
+  }
+});
 
 app.post("/api/contact", async (req, res) => {
   try {
